@@ -4,14 +4,18 @@ using namespace std;
 //declarar funções
 void adicionarTarefa (){
     int id[50];
-    string titulo[3000];
+    string titulo;
+    string descricao;
+    string data;
+    int status;
     cout << "------------- NOVA TAREFA ------------" << endl;
-    cout << "Id da tarefa: " ;
-    cout << "Título: "; 
-    cout << "descrição: ";
-    cout << "data limite: ";
-    cout << "Status (1 - Pendente, 2 - Em Progresso, 3 - Concluída): 1";
-    cout << "Tarefa adicionada com sucesso!";
+    cout << "Id da tarefa: "<< id << endl;
+    cout << "Título: "; cin.ignore(); getline(cin, titulo);
+    cout << "descrição: "; getline(cin, descricao);
+    cout << "data limite (dia/mês/ano): "; getline(cin, data);
+    cout << "Status (1 - Pendente, 2 - Em Progresso, 3 - Concluída): "; cin >> status;
+    cout << "Tarefa adicionada com sucesso!" << endl;
+    cout << "--------------------------------------" << endl;
 }
 
 
@@ -31,4 +35,17 @@ int main(){
     cin >> nOpcao;
 
 
+    switch (nOpcao){
+    case 1: adicionarTarefa(); break;
+    case 2: ; break;
+    case 3: ; break;
+    case 4: ; break;
+    case 5: ; break;
+    case 6: ; break;
+    case 0: ; break;
+    default:
+        break;
+    }
+
+    return 0;
 }
