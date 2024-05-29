@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 const int maxTarefas = 50;
@@ -7,6 +8,9 @@ int ids[maxTarefas];
 string titulo[maxTarefas];
 string descricao[maxTarefas];
 int status[maxTarefas];
+int dia[maxTarefas];
+int mes[maxTarefas];
+int ano[maxTarefas];
 int numTarefas = 0;
 
 int gerarID() {
@@ -24,29 +28,31 @@ int IDAnterior(){
     return idAntes;
 }
 
-void data(){
-    int dia, mes, ano;
-    cout << "dia: "; cin >> dia;
-    cin.ignore();
-    cout << "mês: "; cin >> mes;
-    cin.ignore();
-    cout << "ano: "; cin >> ano;
-    cin.ignore();
-}
 
 void adicionarTarefa() {
-    int dia, mes, ano;
-    cout << "-----adicionar Nova Tarefa-----"<<endl;
+    string titulo2;
+    string descricao2; 
+    int dia2;
+    int mes2;
+    int ano2;
     int novoID = gerarID(); 
+    
+    cout << "-----adicionar Nova Tarefa-----"<<endl;
     ids[maxTarefas] = novoID;
     cout << "ID: " << novoID << endl;
-    cout << "titulo: "; getline(cin, titulo[numTarefas]);
-    cout << "descrição: "; getline(cin, descricao[numTarefas]);
-    cout << "dia: "; cin >> dia; cin.ignore();
-    cout << "mês: "; cin >> mes; cin.ignore();
-    cout << "ano: "; cin >> ano; cin.ignore();
+    cout << "titulo: "; getline(cin, titulo2); 
+    cout << "descrição: "; getline(cin, descricao2);
+    cout << "dia: "; cin >> dia2; cin.ignore(); 
+    cout << "mês: "; cin >> mes2; cin.ignore(); 
+    cout << "ano: "; cin >> ano2; cin.ignore(); 
     cout << "status (1 - pendente, 2 - em Progresso, 3 - concluída): ";
     cin >> status[numTarefas];
+
+    titulo2 = titulo[numTarefas];
+    descricao2 = descricao[numTarefas];
+    dia2 = dia[numTarefas];
+    mes2 = mes[numTarefas];
+    ano2 = ano[numTarefas];
 
     if (status[numTarefas] >= 1 && status[numTarefas] <= 3) {
         cout << "-----tarefa adicionada com sucesso!-----"<<endl;
@@ -63,8 +69,9 @@ void visualizar() {
         cout << "ID: " << IDAnterior << endl;
         cout << "titulo: " << titulo[i] <<endl;
         cout << "descrição: " << descricao[i] <<endl;
-        //var data = dia << "/" << mes << "/" << ano << endl;
-        cout << " " << data;
+        cout << "dia: " << dia[i] << endl;
+        cout << "mês: " << mes[i] << endl;
+        cout << "ano: " << ano[i] << endl;
         cout << "status: ";
         if (status[i] == 1) {
             cout << "pendente" <<endl;
@@ -73,6 +80,7 @@ void visualizar() {
         } else if (status[i] == 3) {
             cout << "concluída" << endl;
         }
+        cout << "-------------------------" <<endl;
     }
 }
 
@@ -99,7 +107,7 @@ int main(){
             case 4: cout << "Remover Tarefa" << endl; break;
             case 5: cout << "Buscar Tarefa" << endl; break;
             case 6: cout << "Filtrar Tarefas por nome" << endl; break;
-            case 0: cout << "\nencerrando..." <<endl; return 0; break;
+            case 0: cout << "" <<endl << ; return 0; break;
         } 
     } while (opcao != 0);
     return 0;
