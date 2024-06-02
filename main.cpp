@@ -3,6 +3,7 @@
 #include <string>
 using namespace std;
 
+//estrutura de dados
 struct Tarefa {
     int id;
     string titulo;
@@ -11,9 +12,12 @@ struct Tarefa {
     int status;
 };
 
+//armazena os dados
 vector<Tarefa> listaTarefas;
 
+//função para adicionar uma nova tarefa
 void adicionarTarefa() {
+    // Adiciona a nova tarefa ao vetor de tarefas
     Tarefa novaTarefa;
     cout << "ID: "; cin >> novaTarefa.id;
     cin.ignore(); // Limpar o buffer de entrada
@@ -27,6 +31,7 @@ void adicionarTarefa() {
     system("clear");
 }
 
+//função para editar as tarefas já adicionadas
 void editarTarefa() {
     system("clear");
 
@@ -34,6 +39,8 @@ void editarTarefa() {
     cout << "Digite o ID da tarefa que deseja editar: ";
     cin >> id;
     cin.ignore(); // Limpar o buffer de entrada
+    
+    //loop para reeacrever o que já esta armazenado na variavel tarefas
     for (auto& tarefa : listaTarefas) {
         if (tarefa.id == id) {
             cout << "Novo Titulo: "; getline(cin, tarefa.titulo);
@@ -47,6 +54,7 @@ void editarTarefa() {
     cout << "Tarefa nao encontrada!" << endl;
 }
 
+//função para visualizar as tarefas
 void visualizarTarefas() {
     for (const auto& tarefa : listaTarefas) {
         cout << "ID: " << tarefa.id << endl;
@@ -58,6 +66,7 @@ void visualizarTarefas() {
     }
 }
 
+//função para remover a tarefa 
 void removerTarefa() {
     system("clear");
 
@@ -65,6 +74,9 @@ void removerTarefa() {
     cout << "Digite o ID da tarefa que deseja remover: ";
     cin >> id;
     cin.ignore(); // Limpar o buffer do cin
+
+    /*(auto it) permitem navegar pelos elementos de um contêiner (como um vetor, lista, ou conjunto)
+    de maneira sequencial. Eles se comportam de maneira similar a ponteiros.*/
     for (auto it = listaTarefas.begin(); it != listaTarefas.end(); ++it) {
         if (it->id == id) {
             listaTarefas.erase(it);
@@ -75,7 +87,7 @@ void removerTarefa() {
     cout << "Tarefa não encontrada!" << endl;
 }
 
-
+//função para buscar uma tarefa pelo titulo
 void buscarTarefa() {
     string titulo;
     cout << "Digite o titulo da tarefa que deseja buscar: ";
@@ -93,6 +105,7 @@ void buscarTarefa() {
     cout << "Tarefa não encontrada!" << endl;
 }
 
+//função que filtra a tarefa por status
 void filtrarTarefasPorStatus() {
     int status;
     cout << "Digite o status para filtrar (1- Pendente, 2- Em Progresso, 3- Concluida): ";
@@ -109,6 +122,7 @@ void filtrarTarefasPorStatus() {
     }
 }
 
+//corpo principal do código
 int main(){
     int opcao;
 
