@@ -1,86 +1,111 @@
 #include <iostream>
+#include <vector>
 #include <string>
-
 using namespace std;
 
-const int maxTarefas = 50;
-int ids[maxTarefas];
-string titulo[maxTarefas];
-string descricao[maxTarefas];
-int status[maxTarefas];
-int dia[maxTarefas];
-int mes[maxTarefas];
-int ano[maxTarefas];
-int numTarefas = 0;
+struct Tarefa {
+    int id;
+    string titulo;
+    string descricao;
+    string dataVencimento;
+    int status;
+};
 
-int gerarID() {
-    static int proximoID = 1; // Inicializa o próximo ID como 1 na primeira chamada da função
-    if (proximoID > 50){
-        cout << "full" << endl;
-    }
-        return proximoID++;
-}
-
-int IDAnterior(){
-    int novoID;
-    int idAntes;
-    idAntes = novoID - 1;
-    return idAntes;
-}
-
+vector<Tarefa> listaTarefas;
 
 void adicionarTarefa() {
-    string titulo2;
-    string descricao2; 
-    int dia2;
-    int mes2;
-    int ano2;
-    int novoID = gerarID(); 
-    
-    cout << "-----adicionar Nova Tarefa-----"<<endl;
-    ids[maxTarefas] = novoID;
-    cout << "ID: " << novoID << endl;
-    cout << "titulo: "; getline(cin, titulo2); 
-    cout << "descrição: "; getline(cin, descricao2);
-    cout << "dia: "; cin >> dia2; cin.ignore(); 
-    cout << "mês: "; cin >> mes2; cin.ignore(); 
-    cout << "ano: "; cin >> ano2; cin.ignore(); 
-    cout << "status (1 - pendente, 2 - em Progresso, 3 - concluída): ";
-    cin >> status[numTarefas];
+    Tarefa novaTarefa;
+    cout << "ID: "; cin >> novaTarefa.id;
+    cin.ignore(); // Limpar o buffer de entrada
+    cout << "Titulo: "; getline(cin, novaTarefa.titulo);
+    cout << "Descricao: "; getline(cin, novaTarefa.descricao);
+    cout << "data vencimento: "; getline(cin, novaTarefa.dataVencimento);
+    cout << "Status (1- Pendente, 2- Em Progresso, 3- Concluida): "; cin >> novaTarefa.status;
+    listaTarefas.push_back(novaTarefa);
+    cout << "Tarefa adicionada com sucesso!" << endl;
 
-    titulo2 = titulo[numTarefas];
-    descricao2 = descricao[numTarefas];
-    dia2 = dia[numTarefas];
-    mes2 = mes[numTarefas];
-    ano2 = ano[numTarefas];
-
-    if (status[numTarefas] >= 1 && status[numTarefas] <= 3) {
-        cout << "-----tarefa adicionada com sucesso!-----"<<endl;
-        numTarefas++;
-    }else {
-        cout << "!!não foi possível salvar a tarefa!!"<<endl;
-    }
-     system("clear");
+    system("clear");
 }
 
-void visualizar() {
-    cout << "-----lista de tarefas-----"<<endl;
-    for (int i = 0; i < numTarefas; i++) {
-        cout << "ID: " << IDAnterior << endl;
-        cout << "titulo: " << titulo[i] <<endl;
-        cout << "descrição: " << descricao[i] <<endl;
-        cout << "dia: " << dia[i] << endl;
-        cout << "mês: " << mes[i] << endl;
-        cout << "ano: " << ano[i] << endl;
-        cout << "status: ";
-        if (status[i] == 1) {
-            cout << "pendente" <<endl;
-        } else if (status[i] == 2) {
-            cout << "em progresso" << endl;
-        } else if (status[i] == 3) {
-            cout << "concluída" << endl;
+void editarTarefa() {
+    system("clear");
+
+    int id;
+    cout << "Digite o ID da tarefa que deseja editar: ";
+    cin >> id;
+    cin.ignore(); // Limpar o buffer de entrada
+    for (auto& tarefa : listaTarefas) {
+        if (tarefa.id == id) {
+            cout << "Novo Titulo: "; getline(cin, tarefa.titulo);
+            cout << "Nova Descricao: "; getline(cin, tarefa.descricao);
+            cout << "data vencimento: "; getline(cin, tarefa.dataVencimento);
+            cout << "Novo Status (1- Pendente, 2- Em Progresso, 3- Concluida): "; cin >> tarefa.status;
+            cout << "Tarefa editada com sucesso!" << endl;
+            return;
         }
-        cout << "-------------------------" <<endl;
+    }
+    cout << "Tarefa nao encontrada!" << endl;
+}
+
+void visualizarTarefas() {
+    for (const auto& tarefa : listaTarefas) {
+        cout << "ID: " << tarefa.id << endl;
+        cout << "Titulo: " << tarefa.titulo << endl;
+        cout << "Descricao: " << tarefa.descricao << endl;
+        cout << "data vencimento: "<< tarefa.dataVencimento << endl;
+        cout << "Status: " << tarefa.status << endl;
+        cout << "---------------------------" << endl;
+    }
+}
+
+void removerTarefa() {
+    system("clear");
+
+    int id;
+    cout << "Digite o ID da tarefa que deseja remover: ";
+    cin >> id;
+    cin.ignore(); // Limpar o buffer do cin
+    for (auto it = listaTarefas.begin(); it != listaTarefas.end(); ++it) {
+        if (it->id == id) {
+            listaTarefas.erase(it);
+            cout << "Tarefa removida com sucesso!" << endl;
+            return;
+        }
+    }
+    cout << "Tarefa não encontrada!" << endl;
+}
+
+
+void buscarTarefa() {
+    string titulo;
+    cout << "Digite o titulo da tarefa que deseja buscar: ";
+    getline(cin, titulo);
+    for (const auto& tarefa : listaTarefas) {
+        if (tarefa.titulo == titulo) {
+            cout << "ID: " << tarefa.id << endl;
+            cout << "Titulo: " << tarefa.titulo << endl;
+            cout << "Descricao: " << tarefa.descricao << endl;
+            cout << "Data de Vencimento: " << tarefa.dataVencimento << endl;
+            cout << "Status: " << tarefa.status << endl;
+            return;
+        }
+    }
+    cout << "Tarefa não encontrada!" << endl;
+}
+
+void filtrarTarefasPorStatus() {
+    int status;
+    cout << "Digite o status para filtrar (1- Pendente, 2- Em Progresso, 3- Concluida): ";
+    cin >> status;
+    for (const auto& tarefa : listaTarefas) {
+        if (tarefa.status == status) {
+            cout << "ID: " << tarefa.id << endl;
+            cout << "Titulo: " << tarefa.titulo << endl;
+            cout << "Descricao: " << tarefa.descricao << endl;
+            cout << "data vencimento: " << tarefa.dataVencimento << endl;
+            cout << "Status: " << tarefa.status << endl;
+            cout << "--------------------------" << endl;
+        }
     }
 }
 
@@ -94,20 +119,21 @@ int main(){
         cout << "3. Editar Tarefa" << endl;
         cout << "4. Remover Tarefa" << endl;
         cout << "5. Buscar Tarefa" << endl;
-        cout << "6. Filtrar Tarefas por nome" << endl;
+        cout << "6. Filtrar Tarefas por status" << endl;
         cout << "0. Sair" << endl;
         cout << "--------------------------------------" << endl;
         cout << "Escolha uma opção: ";
         cin >> opcao;
+        cout << "--------------------------------------" << endl;
 
         switch(opcao){
             case 1:adicionarTarefa(); break;
-            case 2:visualizar(); break;
-            case 3: cout << "Editar Tarefa" << endl; break;
-            case 4: cout << "Remover Tarefa" << endl; break;
-            case 5: cout << "Buscar Tarefa" << endl; break;
-            case 6: cout << "Filtrar Tarefas por nome" << endl; break;
-            case 0: cout << "" <<endl << ; return 0; break;
+            case 2:visualizarTarefas(); break;
+            case 3:editarTarefa(); break;
+            case 4:removerTarefa(); break;
+            case 5:buscarTarefa(); break;
+            case 6:filtrarTarefasPorStatus(); break;
+            case 0: cout << "encerrando..." <<endl; return 0; break;
         } 
     } while (opcao != 0);
     return 0;
