@@ -12,7 +12,7 @@ struct Tarefa {
     int status;
 };
 
-//armazena os dados
+//armazena os dados para o banco de dados "tarefa"
 vector<Tarefa> listaTarefas;
 
 //função para adicionar uma nova tarefa
