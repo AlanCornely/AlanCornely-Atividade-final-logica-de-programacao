@@ -20,7 +20,7 @@ void adicionarTarefa() {
     // Adiciona a nova tarefa ao vetor de tarefas
     Tarefa novaTarefa;
     cout << "ID: "; cin >> novaTarefa.id;
-    cin.ignore(); // Limpar o buffer de entrada
+    cin.ignore(); 
     cout << "Titulo: "; getline(cin, novaTarefa.titulo);
     cout << "Descricao: "; getline(cin, novaTarefa.descricao);
     cout << "data vencimento: "; getline(cin, novaTarefa.dataVencimento);
@@ -38,7 +38,7 @@ void editarTarefa() {
     int id;
     cout << "Digite o ID da tarefa que deseja editar: ";
     cin >> id;
-    cin.ignore(); // Limpar o buffer de entrada
+    cin.ignore(); 
     
     //loop para reeacrever o que já esta armazenado na variavel tarefas
     for (auto& tarefa : listaTarefas) {
@@ -73,7 +73,7 @@ void removerTarefa() {
     int id;
     cout << "Digite o ID da tarefa que deseja remover: ";
     cin >> id;
-    cin.ignore(); // Limpar o buffer do cin
+    cin.ignore(); 
 
     /*(auto it) permitem navegar pelos elementos de um contêiner (como um vetor, lista, ou conjunto)
     de maneira sequencial. Eles se comportam de maneira similar a ponteiros.*/
